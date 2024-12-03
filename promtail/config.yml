@@ -1,0 +1,42 @@
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+    batchsize: 1048576
+    batchwait: 1s
+scrape_configs:
+  # MySQL Logs
+  - job_name: mysql
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "mysql"
+          service: "mysql"
+          __path__: /var/log/mysql/*.log
+
+  # System Logs
+  - job_name: system
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "varlogs"
+          service: "system"
+          __path__: /var/log/*.log
+
+  # Apache Logs
+  - job_name: apache
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: "apache"
+          service: "apache"
+          __path__: /var/log/apache2/*.log
+
