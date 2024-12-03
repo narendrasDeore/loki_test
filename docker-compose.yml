@@ -4,12 +4,12 @@ services:
     image: grafana/loki:2.9.0
     container_name: loki
     ports:
-      - "3100:3100"  # Expose Loki on port 3100
+      - "3100:3100"  
     volumes:
-      - ./loki/loki-config.yml:/etc/loki/loki-config.yml  # Mount the config file
-      - ./loki/data:/loki  # Persistent storage for Loki
+      - ./loki/loki-config.yml:/etc/loki/loki-config.yml  
+      - ./loki/data:/loki  
     restart: always
-    command: -config.file=/etc/loki/loki-config.yml -config.expand-env=true  # Expand environment variables if needed
+    command: -config.file=/etc/loki/loki-config.yml -config.expand-env=true  
   promtail:
     image: grafana/promtail:2.9.0
     container_name: promtail
@@ -23,7 +23,7 @@ services:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
-      - "3000:3000"  # Expose Grafana on port 3000
+      - "3000:3000"  
     environment:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=admin
